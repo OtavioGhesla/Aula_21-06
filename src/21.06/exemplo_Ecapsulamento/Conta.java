@@ -1,0 +1,59 @@
+package Aula_21_06.exemplo_Ecapsulamento;
+
+import java.util.Random;
+
+public class Conta {
+    private String titular;
+    private String identificador;
+    private float saldo;
+
+    //Criando um atributo estático
+    static String nomeBanco;
+
+    public Conta(String titular, float saldo){
+        this.titular = titular;
+        this.saldo = saldo;
+        geraIdentificador();
+    }
+
+    //Sempre que houver uma instância privada, é necessário um métod get para acessar os dados da instância
+
+    public String getTitular(){
+        return titular;
+    }
+
+    public void setTitular(String titular){
+        this.titular = titular;
+    }
+
+    boolean sacar (float valor){
+        if(valor<=saldo){
+            saldo-=valor;
+            return true;
+        }
+        return false;
+    }
+
+    void depositar(float valor){
+        saldo+=valor;
+    }
+
+    public String getIdentificador(){
+        return identificador;
+    }
+
+    private void geraIdentificador(){
+        String identificador = " ";
+        Random aleatorio = new Random();
+
+        for(int i=0; i<4; i++){
+            identificador+=(char)aleatorio.nextInt(65,90);
+        }
+        identificador+=aleatorio.nextInt(1000,2000);
+        this.identificador = identificador;
+    }
+
+    String verificaSaldo(){
+        return String.format("Seu saldo é de R$2.f", saldo);
+    }
+}
